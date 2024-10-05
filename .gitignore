@@ -1,0 +1,66 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment
+venv/
+env/
+.venv/
+
+# Django specific files
+db.sqlite3
+*.pot
+*.pyc
+
+# Local settings
+*.local_settings.py
+
+# Secret keys and credentials
+.env
+
+# Python dependencies
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Node modules for React
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Logs and Debugging Files
+*.log
+*.log.*
+logs/
+*.bak
+*.tmp
+*.temp
+
+# IDE / Editor configurations
+.vscode/
+.idea/
+*.swp
+*.swo
+*.sublime-workspace
+*.sublime-project
+
+# Operating system files
+.DS_Store
+.AppleDouble
+.LSOverride
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+.Trash-*
+
+# Django static files and build directories
+staticfiles/
+frontend/build/
+frontend/dist/
+
+# Heroku
+.heroku/
+
+# Jupyter Notebook checkpoints (Optional)
+.ipynb_checkpoints
