@@ -3,10 +3,14 @@ dj-database-url==2.2.0
 Django==4.2.16
 djangorestframework==3.15.2
 gunicorn==23.0.0
+numpy==2.0.2
 packaging==24.1
+pandas==2.2.3
 psycopg2-binary==2.9.9
+python-dateutil==2.9.0.post0
+pytz==2024.2
+six==1.16.0
 sqlparse==0.5.1
 typing_extensions==4.12.2
+tzdata==2024.2
 whitenoise==6.7.0
-pandas==2.2.3
-numpy==1.19.2
