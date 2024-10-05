@@ -54,10 +54,10 @@ ehthumbs.db
 Desktop.ini
 .Trash-*
 
-# Django static files and build directories
-staticfiles/
-frontend/build/
-frontend/dist/
+# # Django static files and build directories
+# staticfiles/
+# frontend/build/
+# frontend/dist/
 
 # Heroku
 .heroku/
