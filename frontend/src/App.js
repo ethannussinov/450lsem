@@ -1,39 +1,61 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { MapContainer, TileLayer, GeoJSON } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
-import axios from 'axios';
+import topojson from 'topojson-client';
 
-const App = () => {
-  const [districts, setDistricts] = useState([]);
+const App = ({ geoData }) => {
+  const [activeDistrict, setActiveDistrict] = useState(null);
 
-  useEffect(() => {
-    // Fetch districts from API
-    axios.get('https://your-heroku-app-url.com/api/districts')
-      .then(response => setDistricts(response.data))
-      .catch(error => console.error('Error fetching districts:', error));
-  }, []);
+  // Handle when a district is clicked
+  const onEachDistrict = (district, layer) => {
+    const districtName = district.properties.name;
 
-  const onDistrictClick = (e, district) => {
-    console.log('District clicked:', district);
-    // Navigate to district-specific page
+    // Add hover effect
+    layer.on({
+      mouseover: (e) => {
+        layer.setStyle({
+          fillOpacity: 0.7,
+        });
+      },
+      mouseout: (e) => {
+        layer.setStyle({
+          fillOpacity: 0.5,
+        });
+      },
+      click: () => {
+        setActiveDistrict(districtName);
+      },
+    });
   };
 
   return (
     <div>
-      <h1>St. Louis School District Map</h1>
-      <MapContainer center={[38.6270, -90.1994]} zoom={10} style={{ height: '600px', width: '100%' }}>
+      <MapContainer style={{ height: "600px", width: "100%" }} center={[38.6270, -90.1994]} zoom={11}>
         <TileLayer
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          attribution="&copy; OpenStreetMap contributors"
+          attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
         />
-        {districts.map(district => (
+        {geoData && (
           <GeoJSON
-            key={district.id}
-            data={district.geojson}  // Ensure geojson data is stored in PostgreSQL
-            onClick={(e) => onDistrictClick(e, district)}
+            data={geoData}
+            onEachFeature={onEachDistrict}
+            style={{
+              fillColor: '#3388ff',
+              weight: 2,
+              opacity: 1,
+              color: 'white',
+              fillOpacity: 0.5,
+            }}
           />
-        ))}
+        )}
       </MapContainer>
+
+      {activeDistrict && (
+        <div className="info-box">
+          <h4>District Info</h4>
+          <p>{activeDistrict}</p>
+        </div>
+      )}
     </div>
   );
 };
