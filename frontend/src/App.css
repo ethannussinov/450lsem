@@ -32,7 +32,16 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
+}
+
+/* App.css */
+.map-container {
+  height: 75vh;
+  /* Make the map take full viewport height */
+  width: 100%;
+  /* Ensure the map takes the full width */
 }
