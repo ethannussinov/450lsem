@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.views.generic import TemplateView
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path, include, re_path
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -24,5 +24,6 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include('discipline.urls')),  #our backend API URLs
-    path('', TemplateView.as_view(template_name='frontend/index.html')),  #our frontend (React index.html)
+    #serve react index.html for all other routes
+    re_path(r'^.*$', TemplateView.as_view(template_name='frontend/index.html')),  #catch-all for react
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

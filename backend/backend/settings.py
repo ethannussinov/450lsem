@@ -24,12 +24,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-o+iq3#uu313bf@a=1me67bg+_m=$_+zag#(m@6x@sl#w3muqaj"
+# SECRET_KEY = 'django-insecure-o+iq3#uu313bf@a=1me67bg+_m=$_+zag#(m@6x@sl#w3muqaj' (in heroku as env var SECRET_KEY)
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['https://lsem-4061418aca26.herokuapp.com/']
 
 
 # Application definition
@@ -52,17 +52,18 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    "whitenoise.middleware.WhiteNoiseMiddleware",  #for serving static files
-
-    
+    "whitenoise.middleware.WhiteNoiseMiddleware",  #for serving static files   
 ]
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-ROOT_URLCONF = "backend.urls"
+
+ROOT_URLCONF = "backend.backend.urls"
+
 
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [os.path.join(BASE_DIR, 'frontend/build')],  #add react build directory here
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -74,6 +75,7 @@ TEMPLATES = [
         },
     },
 ]
+
 
 WSGI_APPLICATION = "backend.wsgi.application"
 
@@ -116,8 +118,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]  # Corrected to be a list
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'frontend/build/static')]  #react static files
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  #collected static files for production w/ heroku
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
