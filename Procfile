@@ -1,1 +1,1 @@
-web: gunicorn backend.backend.wsgi --log-file -
+web: cd frontend && npm install && npm run build && cd .. && gunicorn backend.wsgi --log-file -
